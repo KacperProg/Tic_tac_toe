@@ -4,7 +4,7 @@
 
 Build Spring Boot API with **Web**, **DevTools**, **PostgreSQL** and **JPA** dependencies.
 
-1. Create Game class - **id**, **player**, **board (as a List)**, **isComplete**, **result** (W/L/D)
+1. Create Game class - **id**, **player**, **board** (as a 2D Array?), **isComplete**, **result** (W/L/D - Enum)
 2. Create Player Class - **id**, **playerName**
 3. Create **Controllers**, **Service Layer**, **Data Access Layer**
 4. Game Service Layer - **startGame()**, **processTurn()**, **checkWinner()**, **isCellFull()**, **isBoardFull()**, **getBoardState()**
@@ -25,4 +25,5 @@ Build Spring Boot API with **Web**, **DevTools**, **PostgreSQL** and **JPA** dep
 ## 	Extension
 1. Create a 2-player game - Change DB relationships
 2. Create a Leaderboard
-3. Achievements - Messages to say you've won this many games etc. 
+3. Achievements - Messages to say you've won this many games etc.
+4.  
