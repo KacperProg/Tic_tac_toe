@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d3cb24b-a30b-4053-b113-a2109650689b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/models/PlayerDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/models/GameDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/components/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/components/DataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/controllers/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/controllers/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/controllers/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/controllers/GameController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +45,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/thomasloughran/Documents/BNTA/bnta_work/week_07/backend_project/group_repo/Tic_tac_toe"
+    "last_opened_file_path": "/Users/kacpi/Documents/BNTA/bnta_work/week_07/backend_project/Tic_tac_toe"
   }
 }]]></component>
   <component name="RunManager">
