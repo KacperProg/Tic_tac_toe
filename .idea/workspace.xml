@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d3cb24b-a30b-4053-b113-a2109650689b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/models/PlayerDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/models/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/models/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/components/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/components/DataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/controllers/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bnta/Tic_tac_toe/controllers/PlayerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +19,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -39,14 +41,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/saima/BNTA/bnta_work/week_07/bankend_project/Tic_tac_toe&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/thomasloughran/Documents/BNTA/bnta_work/week_07/backend_project/group_repo/Tic_tac_toe"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="TicTacToeApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.bnta.Tic_tac_toe.TicTacToeApplication" />
