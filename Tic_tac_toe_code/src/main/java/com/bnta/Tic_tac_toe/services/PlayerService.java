@@ -1,7 +1,9 @@
 package com.bnta.Tic_tac_toe.services;
 
+import com.bnta.Tic_tac_toe.models.Game;
 import com.bnta.Tic_tac_toe.models.Player;
 import com.bnta.Tic_tac_toe.models.PlayerDTO;
+import com.bnta.Tic_tac_toe.repositories.GameRepository;
 import com.bnta.Tic_tac_toe.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class PlayerService {
 
     @Autowired
     PlayerRepository playerRepository;
+
+    @Autowired
+    GameRepository gameRepository;
 
     public List<Player> getAllPlayers(){
         return playerRepository.findAll();
@@ -29,6 +34,10 @@ public class PlayerService {
     }
 
     public void deleteById(long id){
+        Player player = playerRepository.findById(id).get();
+        for (Game game : player.getGames()){
+            game.setPlayer(null);
+        }
         playerRepository.deleteById(id);
     }
 
