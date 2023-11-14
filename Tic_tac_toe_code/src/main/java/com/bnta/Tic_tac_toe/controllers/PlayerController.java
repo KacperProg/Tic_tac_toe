@@ -43,9 +43,9 @@ public class PlayerController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deletePlayerById(@PathVariable long id){
-        Optional<Player> checkPlayer = playerService.getPlayerById(id);
+        Optional<Player> optionalPlayer = playerService.getPlayerById(id);
 
-        if (checkPlayer.isPresent()){
+        if (optionalPlayer.isPresent()){
             playerService.deleteById(id);
             return new ResponseEntity<>(null, HttpStatus.OK);
         }

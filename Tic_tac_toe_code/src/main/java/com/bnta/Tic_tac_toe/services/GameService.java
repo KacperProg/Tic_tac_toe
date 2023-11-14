@@ -57,4 +57,12 @@ public class GameService {
         return game;
     }
 
+    public void deleteGameById(long gameId){
+        Game game = gameRepository.findById(gameId).get();
+        for (Cell cell : game.getCells()){
+            cellRepository.delete(cell);
+        }
+        gameRepository.delete(game);
+    }
+
 }

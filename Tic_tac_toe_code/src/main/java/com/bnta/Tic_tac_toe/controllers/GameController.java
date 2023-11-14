@@ -2,6 +2,7 @@ package com.bnta.Tic_tac_toe.controllers;
 
 import com.bnta.Tic_tac_toe.models.Game;
 import com.bnta.Tic_tac_toe.models.GameDTO;
+import com.bnta.Tic_tac_toe.models.Player;
 import com.bnta.Tic_tac_toe.models.PlayerDTO;
 import com.bnta.Tic_tac_toe.repositories.GameRepository;
 import com.bnta.Tic_tac_toe.services.GameService;
@@ -47,7 +48,16 @@ public class GameController {
     @PatchMapping(value = "/{gameId}")
     public ResponseEntity<Game> updateGame(@PathVariable long gameId, @RequestBody GameDTO gameDTO){return null;}
 
-    @DeleteMapping
-    public ResponseEntity<Game> deleteGame(){return null;}
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteGameById(@PathVariable long id){
+        Optional<Game> optionalGame = gameService.getGameById(id);
 
+        if (optionalGame.isPresent()){
+            gameService.deleteGameById(id);
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+    }
 }
