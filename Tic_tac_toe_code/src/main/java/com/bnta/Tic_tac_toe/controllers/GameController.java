@@ -39,7 +39,10 @@ public class GameController {
 
 
     @PostMapping
-    public ResponseEntity<Game> startNewGame(@RequestParam long playerId){return null;}
+    public ResponseEntity<Game> startNewGame(@RequestParam long playerId){
+        Game game = gameService.startNewGame(playerId);
+        return new ResponseEntity<>(game, HttpStatus.CREATED);
+    }
 
     @PatchMapping(value = "/{gameId}")
     public ResponseEntity<Game> updateGame(@PathVariable long gameId, @RequestBody GameDTO gameDTO){return null;}

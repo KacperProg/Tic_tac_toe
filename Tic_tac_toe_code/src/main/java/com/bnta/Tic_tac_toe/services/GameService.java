@@ -8,6 +8,7 @@ import com.bnta.Tic_tac_toe.repositories.CellRepository;
 import com.bnta.Tic_tac_toe.repositories.GameRepository;
 import com.bnta.Tic_tac_toe.repositories.PlayerRepository;
 import jakarta.persistence.Id;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,23 +38,22 @@ public class GameService {
 
     public void makeCells(int numberOfCells, Game game){
         // initialising
-        int i;
-        for (i = 0; i < numberOfCells; i++) {
+        for (int i = 0; i < numberOfCells; i++) {
             Cell cell = new Cell(Value.EMPTY);
             cell.setGame(game);
             cellRepository.save(cell);
+            game.addCell(cell);
         }
-
-        gameRepository.save(game);
-
     }
 
+    @Transactional
     public Game startNewGame(long playerId) {
         Player player = playerRepository.findById(playerId).get();
         Game game = new Game(player);
         gameRepository.save(game);
 
         makeCells(9, game);
+        gameRepository.save(game);
         return game;
     }
 
