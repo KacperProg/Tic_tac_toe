@@ -19,6 +19,9 @@ public class Cell {
     @Column
     private Value value;
 
+    @Column
+    private int cellNumber;
+
     public Cell(Value value) {
         this.value = value;
     }
@@ -48,5 +51,13 @@ public class Cell {
 
     public void setValue(Value value) {
         this.value = value;
+    }
+
+    public int getCellNumber() {
+        return cellNumber;
+    }
+
+    public void setCellNumber(int cellNumber) {
+        this.cellNumber = cellNumber;
     }
 }

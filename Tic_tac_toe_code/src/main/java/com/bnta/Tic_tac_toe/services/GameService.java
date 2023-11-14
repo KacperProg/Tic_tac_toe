@@ -1,9 +1,6 @@
 package com.bnta.Tic_tac_toe.services;
 
-import com.bnta.Tic_tac_toe.models.Cell;
-import com.bnta.Tic_tac_toe.models.Game;
-import com.bnta.Tic_tac_toe.models.Player;
-import com.bnta.Tic_tac_toe.models.Value;
+import com.bnta.Tic_tac_toe.models.*;
 import com.bnta.Tic_tac_toe.repositories.CellRepository;
 import com.bnta.Tic_tac_toe.repositories.GameRepository;
 import com.bnta.Tic_tac_toe.repositories.PlayerRepository;
@@ -16,6 +13,7 @@ import javax.swing.event.CellEditorListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class GameService {
@@ -40,6 +38,7 @@ public class GameService {
         // initialising
         for (int i = 0; i < numberOfCells; i++) {
             Cell cell = new Cell(Value.EMPTY);
+            cell.setCellNumber(i+1);
             cell.setGame(game);
             cellRepository.save(cell);
             game.addCell(cell);
@@ -63,6 +62,46 @@ public class GameService {
             cellRepository.delete(cell);
         }
         gameRepository.delete(game);
+    }
+
+    public boolean isCellFull(Cell cell){
+        if (cell.getValue() == Value.EMPTY){
+            return false;
+        } else{return true;}
+    }
+
+    public boolean isBoardFull(List<Cell> cells){
+        for (Cell cell : cells){
+            if (!isCellFull(cell)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void makePlayerMove(Cell cell){
+        cell.setValue(Value.X);
+    }
+
+    public void makeComputerMove(List<Cell> cells){
+        List<Cell> emptyCells = new ArrayList<>();
+        for (Cell cell : cells){
+            if (!isCellFull(cell)){
+                emptyCells.add(cell);
+            }
+        }
+        Random random = new Random();
+        int randomNumber = random.nextInt(emptyCells.size());
+        Cell computerGuess = emptyCells.get(randomNumber);
+        computerGuess.setValue(Value.O);
+    }
+
+    public Game processTurn(GameDTO gameDTO, long gameId){
+        Game game = gameRepository.findById(gameId).get();
+        Cell cell = gameRepository.findByCellNumber(gameDTO.getPosition());
+        isCellFull(cell);
+
+
     }
 
 }

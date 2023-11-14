@@ -46,7 +46,9 @@ public class GameController {
     }
 
     @PatchMapping(value = "/{gameId}")
-    public ResponseEntity<Game> updateGame(@PathVariable long gameId, @RequestBody GameDTO gameDTO){return null;}
+    public ResponseEntity<Game> updateGame(@PathVariable long gameId, @RequestBody GameDTO gameDTO){
+        return null;
+    }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteGameById(@PathVariable long id){
