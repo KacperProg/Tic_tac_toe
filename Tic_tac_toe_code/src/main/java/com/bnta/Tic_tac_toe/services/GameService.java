@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.event.CellEditorListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,25 +35,25 @@ public class GameService {
         return gameRepository.findById(id);
     }
 
-    public List<Cell> makeCells(int numberOfCells){
+    public void makeCells(int numberOfCells, Game game){
         // initialising
-        List<Cell> cells = new ArrayList<>();
         int i;
         for (i = 0; i < numberOfCells; i++) {
             Cell cell = new Cell(Value.EMPTY);
-            cells.add(cell);
+            cell.setGame(game);
             cellRepository.save(cell);
         }
 
-        return cells;
+        gameRepository.save(game);
+
     }
 
     public Game startNewGame(long playerId) {
         Player player = playerRepository.findById(playerId).get();
         Game game = new Game(player);
-        game.setCells(makeCells(9));
         gameRepository.save(game);
 
+        makeCells(9, game);
         return game;
     }
 
