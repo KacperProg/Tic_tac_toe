@@ -152,19 +152,9 @@ public class GameService {
     public ReplyDTO processTurn(GameDTO gameDTO, long gameId){
         Game game = gameRepository.findById(gameId).get();
         Cell chosenCell = cellRepository.findByCellNumberAndGameId(gameDTO.getPosition(), gameId);
-//        get list of cells from game one by one in order (messes up otherwise)
 
-        Cell[] checkCells = new Cell[9];
-        List<Cell> gameCells = game.getCells();
-        for (Cell cell : gameCells){
-            checkCells[cell.getCellNumber()-1] = cell;
-        }
+        List<Cell> cells = game.getCells();
 
-        List<Cell> cells = new ArrayList<>(Arrays.asList(checkCells));
-
-
-//        List<Cell> cells = game.getCells();
-//        Collections.sort();
         if (isBoardFull(cells)){
             return new ReplyDTO("Invalid move, board is full",getGameState(cells), false);
         }
