@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.event.CellEditorListener;
+import java.lang.reflect.Array;
 import java.util.*;
 
 @Service
@@ -142,6 +143,7 @@ public class GameService {
         List<Value> cellsRow2Values = new ArrayList<>(Arrays.asList(cells.get(3).getValue(), cells.get(4).getValue(), cells.get(5).getValue()));
         List<Value> cellsRow3Values = new ArrayList<>(Arrays.asList(cells.get(6).getValue(), cells.get(7).getValue(), cells.get(8).getValue()));
 
+
         List<List<Value>> board = new ArrayList<>(Arrays.asList(cellsRow1Values, cellsRow2Values, cellsRow3Values));
 
         return board;
@@ -150,8 +152,19 @@ public class GameService {
     public ReplyDTO processTurn(GameDTO gameDTO, long gameId){
         Game game = gameRepository.findById(gameId).get();
         Cell chosenCell = cellRepository.findByCellNumberAndGameId(gameDTO.getPosition(), gameId);
-        List<Cell> cells = game.getCells();
+//        get list of cells from game one by one in order (messes up otherwise)
 
+        Cell[] checkCells = new Cell[9];
+        List<Cell> gameCells = game.getCells();
+        for (Cell cell : gameCells){
+            checkCells[cell.getCellNumber()-1] = cell;
+        }
+
+        List<Cell> cells = new ArrayList<>(Arrays.asList(checkCells));
+
+
+//        List<Cell> cells = game.getCells();
+//        Collections.sort();
         if (isBoardFull(cells)){
             return new ReplyDTO("Invalid move, board is full",getGameState(cells), false);
         }
