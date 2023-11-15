@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.event.CellEditorListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class GameService {
@@ -100,18 +97,41 @@ public class GameService {
 
     }
 
-    public boolean checkWinner(List<Cell> cells, long gameId){
-        // Create a var that stores the first cell's value
+    public boolean checkLine(List<Cell> cells){
 
-        int cellNumber = 1;
-        Value cellValue = gameRepository.findByCellNumberAndGameId(cellNumber, gameId).getValue();
+        Value cellValue = cells.get(0).getValue();
 
         for (int i = 1; i < cells.size(); i++){
-            if (!cellValue.equals(cells.get(i))) {
+            if (!cellValue.equals(cells.get(i).getValue())) {
                 return false;
             }
         }
         return true;
+    }
+
+    public boolean checkWinner(List<Cell> cells){
+        // Create a var that stores the first cell's value
+
+        List<Cell> cellsRow1 = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(1), cells.get(2)));
+        List<Cell> cellsRow2 = new ArrayList<>(Arrays.asList(cells.get(3), cells.get(4), cells.get(5)));
+        List<Cell> cellsRow3 = new ArrayList<>(Arrays.asList(cells.get(6), cells.get(7), cells.get(8)));
+
+        List<Cell> cellsDiagonal1  = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(4), cells.get(8)));
+        List<Cell> cellsDiagonal2 = new ArrayList<>(Arrays.asList(cells.get(2), cells.get(4), cells.get(6)));
+
+        List<Cell> cellsColumn1 = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(3), cells.get(6)));
+        List<Cell> cellsColumn2 = new ArrayList<>(Arrays.asList(cells.get(1), cells.get(4), cells.get(7)));
+        List<Cell> cellsColumn3 = new ArrayList<>(Arrays.asList(cells.get(2), cells.get(5), cells.get(8)));
+
+        List<List<Cell>> cellCombinations = new ArrayList<>(Arrays.asList(cellsRow1, cellsRow2, cellsRow3, cellsDiagonal1, cellsDiagonal2, cellsColumn1, cellsColumn2, cellsColumn3));
+
+        for (List<Cell> cellList : cellCombinations){
+            if(checkLine(cellList)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public ReplyDTO processTurn(GameDTO gameDTO, long gameId){
@@ -133,7 +153,8 @@ public class GameService {
         else{
             makePlayerMove(chosenCell);
         }
-        if(checkWinner()){
+
+        if(checkWinner(cells)){
             replyDTO.setMessage("You won");
             replyDTO.setResult(Result.WIN);
             return replyDTO;
