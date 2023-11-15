@@ -100,14 +100,23 @@ public class GameService {
 
     }
 
-    public boolean checkWinner(){
-//        write me
+    public boolean checkWinner(List<Cell> cells, long gameId){
+        // Create a var that stores the first cell's value
+
+        int cellNumber = 1;
+        Value cellValue = gameRepository.findByCellNumberAndGameId(cellNumber, gameId).getValue();
+
+        for (int i = 1; i < cells.size(); i++){
+            if (!cellValue.equals(cells.get(i))) {
+                return false;
+            }
+        }
         return true;
     }
 
     public ReplyDTO processTurn(GameDTO gameDTO, long gameId){
         Game game = gameRepository.findById(gameId).get();
-        Cell chosenCell = gameRepository.findByCellNumber(gameDTO.getPosition());
+        Cell chosenCell = gameRepository.findByCellNumberAndGameId(gameDTO.getPosition(), gameId);
         List<Cell> cells = game.getCells();
         ReplyDTO replyDTO = new ReplyDTO("", cells, true);
 
