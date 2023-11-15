@@ -151,29 +151,24 @@ public class GameService {
         Game game = gameRepository.findById(gameId).get();
         Cell chosenCell = cellRepository.findByCellNumberAndGameId(gameDTO.getPosition(), gameId);
         List<Cell> cells = game.getCells();
-        ReplyDTO replyDTO = new ReplyDTO("", getGameState(cells), true);
 
         if (isBoardFull(cells)){
-            replyDTO.setMessage("Invalid move, board is full");
-            replyDTO.setValidMove(false);
-            return replyDTO;
+            return new ReplyDTO("Invalid move, board is full",getGameState(cells), false);
         }
         if(isCellFull(chosenCell)){
-            replyDTO.setMessage("Invalid move, chosen cell is occupied");
-            replyDTO.setValidMove(false);
-            return replyDTO;
+            return new ReplyDTO("Invalid move, chosen cell is occupied", getGameState(cells), false);
         }
         else{
             makePlayerMove(chosenCell);
         }
 
         if(checkWinner(cells)){
-            replyDTO.setMessage("You won");
+            ReplyDTO replyDTO = new ReplyDTO("You won", getGameState(cells), true);
             replyDTO.setResult(Result.WIN);
             return replyDTO;
         }
         if(isBoardFull(cells)){
-            replyDTO.setMessage("Invalid move, chosen cell is occupied");
+            ReplyDTO replyDTO = new ReplyDTO("Invalid move, chosen cell is occupied", getGameState(cells), true);
             replyDTO.setResult(Result.DRAW);
             return replyDTO;
         }
@@ -182,12 +177,11 @@ public class GameService {
             makeComputerMove(cells);
         }
         if(checkWinner(cells)){
-            replyDTO.setMessage("You lost");
+            ReplyDTO replyDTO = new ReplyDTO("You lost", getGameState(cells), true);
             replyDTO.setResult(Result.LOSS);
             return replyDTO;
         } else {
-            replyDTO.setMessage("turn processed");
-            return replyDTO;
+            return new ReplyDTO("turn processed", getGameState(cells), true);
         }
 
 
