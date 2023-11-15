@@ -81,19 +81,23 @@ public class GameService {
 
     public void makePlayerMove(Cell cell){
         cell.setValue(Value.X);
+        cellRepository.save(cell);
     }
 
     public void makeComputerMove(List<Cell> cells){
-        List<Cell> emptyCells = new ArrayList<>();
-        for (Cell cell : cells){
-            if (!isCellFull(cell)){
-                emptyCells.add(cell);
+        List<Integer> emptyCells = new ArrayList<>();
+        for (int i = 0; i < cells.size(); i++){
+            if (!isCellFull(cells.get(i))){
+                emptyCells.add(i);
             }
         }
         Random random = new Random();
         int randomNumber = random.nextInt(emptyCells.size());
-        Cell computerGuess = emptyCells.get(randomNumber);
-        computerGuess.setValue(Value.O);
+        int computerGuess = emptyCells.get(randomNumber);
+
+        cells.get(computerGuess).setValue(Value.O);
+        cellRepository.save(cells.get(computerGuess));
+
     }
 
     public boolean checkWinner(){
@@ -121,10 +125,30 @@ public class GameService {
             makePlayerMove(chosenCell);
         }
         if(checkWinner()){
-            replyDTO.setMessage("Invalid move, chosen cell is occupied");
+            replyDTO.setMessage("You won");
             replyDTO.setResult(Result.WIN);
             return replyDTO;
         }
+        if(isBoardFull(cells)){
+            replyDTO.setMessage("Invalid move, chosen cell is occupied");
+            replyDTO.setResult(Result.DRAW);
+            return replyDTO;
+        }
+        else {
+//            cells passed in may need updating with cell players put 'x' in
+            makeComputerMove(cells);
+        }
+        if(checkWinner()){
+            replyDTO.setMessage("You lost");
+            replyDTO.setResult(Result.LOSS);
+            return replyDTO;
+        } else {
+            replyDTO.setMessage("turn processed");
+            return replyDTO;
+        }
+
+
+
 
 
     }
