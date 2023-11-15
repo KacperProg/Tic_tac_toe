@@ -137,11 +137,21 @@ public class GameService {
         return false;
     }
 
+    public List<List<Value>> getGameState(List<Cell> cells){
+        List<Value> cellsRow1Values = new ArrayList<>(Arrays.asList(cells.get(0).getValue(), cells.get(1).getValue(), cells.get(2).getValue()));
+        List<Value> cellsRow2Values = new ArrayList<>(Arrays.asList(cells.get(3).getValue(), cells.get(4).getValue(), cells.get(5).getValue()));
+        List<Value> cellsRow3Values = new ArrayList<>(Arrays.asList(cells.get(6).getValue(), cells.get(7).getValue(), cells.get(8).getValue()));
+
+        List<List<Value>> board = new ArrayList<>(Arrays.asList(cellsRow1Values, cellsRow2Values, cellsRow3Values));
+
+        return board;
+    }
+
     public ReplyDTO processTurn(GameDTO gameDTO, long gameId){
         Game game = gameRepository.findById(gameId).get();
         Cell chosenCell = cellRepository.findByCellNumberAndGameId(gameDTO.getPosition(), gameId);
         List<Cell> cells = game.getCells();
-        ReplyDTO replyDTO = new ReplyDTO("", cells, true);
+        ReplyDTO replyDTO = new ReplyDTO("", , true);
 
         if (isBoardFull(cells)){
             replyDTO.setMessage("Invalid move, board is full");
