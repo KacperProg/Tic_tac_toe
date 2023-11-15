@@ -151,7 +151,7 @@ public class GameService {
         Game game = gameRepository.findById(gameId).get();
         Cell chosenCell = cellRepository.findByCellNumberAndGameId(gameDTO.getPosition(), gameId);
         List<Cell> cells = game.getCells();
-        ReplyDTO replyDTO = new ReplyDTO("", , true);
+        ReplyDTO replyDTO = new ReplyDTO("", getGameState(cells), true);
 
         if (isBoardFull(cells)){
             replyDTO.setMessage("Invalid move, board is full");
