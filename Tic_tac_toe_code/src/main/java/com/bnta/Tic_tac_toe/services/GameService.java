@@ -168,7 +168,7 @@ public class GameService {
 //            cells passed in may need updating with cell players put 'x' in
             makeComputerMove(cells);
         }
-        if(checkWinner()){
+        if(checkWinner(cells)){
             replyDTO.setMessage("You lost");
             replyDTO.setResult(Result.LOSS);
             return replyDTO;
