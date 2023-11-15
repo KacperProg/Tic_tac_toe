@@ -12,19 +12,7 @@ public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "player_id")
-    @JsonIgnoreProperties({"games"})
-    private Player player;
-
-    @Column
-    private boolean isComplete;
-
-    @Column
-    private Result result;
-
+   c
     @OneToMany(mappedBy = "game")
     @JsonIgnoreProperties({"game"})
     private List<Cell> cells;
