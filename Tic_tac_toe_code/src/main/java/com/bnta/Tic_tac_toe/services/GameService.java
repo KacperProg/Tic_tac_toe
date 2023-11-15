@@ -96,16 +96,37 @@ public class GameService {
         computerGuess.setValue(Value.O);
     }
 
+    public boolean checkWinner(){
+//        write me
+        return true;
+    }
+
     public ReplyDTO processTurn(GameDTO gameDTO, long gameId){
         Game game = gameRepository.findById(gameId).get();
-        Cell cell = gameRepository.findByCellNumber(gameDTO.getPosition());
+        Cell chosenCell = gameRepository.findByCellNumber(gameDTO.getPosition());
         List<Cell> cells = game.getCells();
+        ReplyDTO replyDTO = new ReplyDTO("", cells, true);
 
         if (isBoardFull(cells)){
-            checkWinner();
-            return new ReplyDTO("Board is full!");
+            replyDTO.setMessage("Invalid move, board is full");
+            replyDTO.setValidMove(false);
+            return replyDTO;
         }
-        isCellFull(cell);
+        if(isCellFull(chosenCell)){
+            replyDTO.setMessage("Invalid move, chosen cell is occupied");
+            replyDTO.setValidMove(false);
+            return replyDTO;
+        }
+        else{
+            makePlayerMove(chosenCell);
+        }
+        if(checkWinner()){
+            replyDTO.setMessage("Invalid move, chosen cell is occupied");
+            replyDTO.setResult(Result.WIN);
+            return replyDTO;
+        }
+
+
     }
 
 }
