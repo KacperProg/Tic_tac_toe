@@ -97,16 +97,19 @@ public class GameService {
 
     }
 
-    public boolean checkLine(List<Cell> cells){
+    public boolean checkLine(List<Cell> cells) {
 
         Value cellValue = cells.get(0).getValue();
 
-        for (int i = 1; i < cells.size(); i++){
-            if (!cellValue.equals(cells.get(i).getValue())) {
-                return false;
+        if (!cellValue.equals(Value.EMPTY)){
+            for (int i = 1; i < cells.size(); i++) {
+                if (!cellValue.equals(cells.get(i).getValue())) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     public boolean checkWinner(List<Cell> cells){
@@ -136,7 +139,7 @@ public class GameService {
 
     public ReplyDTO processTurn(GameDTO gameDTO, long gameId){
         Game game = gameRepository.findById(gameId).get();
-        Cell chosenCell = gameRepository.findByCellNumberAndGameId(gameDTO.getPosition(), gameId);
+        Cell chosenCell = cellRepository.findByCellNumberAndGameId(gameDTO.getPosition(), gameId);
         List<Cell> cells = game.getCells();
         ReplyDTO replyDTO = new ReplyDTO("", cells, true);
 
