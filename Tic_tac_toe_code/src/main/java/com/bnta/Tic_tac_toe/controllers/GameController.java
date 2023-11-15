@@ -1,9 +1,6 @@
 package com.bnta.Tic_tac_toe.controllers;
 
-import com.bnta.Tic_tac_toe.models.Game;
-import com.bnta.Tic_tac_toe.models.GameDTO;
-import com.bnta.Tic_tac_toe.models.Player;
-import com.bnta.Tic_tac_toe.models.PlayerDTO;
+import com.bnta.Tic_tac_toe.models.*;
 import com.bnta.Tic_tac_toe.repositories.GameRepository;
 import com.bnta.Tic_tac_toe.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +43,7 @@ public class GameController {
     }
 
     @PatchMapping(value = "/{gameId}")
-    public ResponseEntity<Game> updateGame(@PathVariable long gameId, @RequestBody GameDTO gameDTO){
+    public ResponseEntity<ReplyDTO> updateGame(@PathVariable long gameId, @RequestBody GameDTO gameDTO){
         return null;
     }
 

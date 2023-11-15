@@ -96,12 +96,16 @@ public class GameService {
         computerGuess.setValue(Value.O);
     }
 
-    public Game processTurn(GameDTO gameDTO, long gameId){
+    public ReplyDTO processTurn(GameDTO gameDTO, long gameId){
         Game game = gameRepository.findById(gameId).get();
         Cell cell = gameRepository.findByCellNumber(gameDTO.getPosition());
+        List<Cell> cells = game.getCells();
+
+        if (isBoardFull(cells)){
+            checkWinner();
+            return new ReplyDTO("Board is full!");
+        }
         isCellFull(cell);
-
-
     }
 
 }
