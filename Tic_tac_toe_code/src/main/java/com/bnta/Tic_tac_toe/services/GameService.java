@@ -278,11 +278,17 @@ public class GameService {
         if(checkWinner(cells)){
             ReplyDTO replyDTO = new ReplyDTO("You won", getGameState(cells), true);
             replyDTO.setResult(Result.WIN);
+            game.setResult(Result.WIN);
+            game.setComplete(true);
+            gameRepository.save(game);
             return replyDTO;
         }
         if(isBoardFull(cells)){
-            ReplyDTO replyDTO = new ReplyDTO("Game complete, you drew", getGameState(cells), true);
+            ReplyDTO replyDTO = new ReplyDTO("Game complete, game ended in a draw", getGameState(cells), true);
             replyDTO.setResult(Result.DRAW);
+            game.setResult(Result.DRAW);
+            game.setComplete(true);
+            gameRepository.save(game);
             return replyDTO;
         }
         else {
@@ -292,8 +298,12 @@ public class GameService {
         if(checkWinner(cells)){
             ReplyDTO replyDTO = new ReplyDTO("You lost", getGameState(cells), true);
             replyDTO.setResult(Result.LOSS);
+            game.setResult(Result.LOSS);
+            game.setComplete(true);
+            gameRepository.save(game);
             return replyDTO;
-        } else {
+        }
+        else {
             return new ReplyDTO("turn processed", getGameState(cells), true);
         }
 
