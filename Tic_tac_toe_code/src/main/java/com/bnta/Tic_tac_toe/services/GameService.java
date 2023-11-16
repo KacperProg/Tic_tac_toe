@@ -98,6 +98,127 @@ public class GameService {
 
     }
 
+    public Cell checkTwoRow(List<Cell> cells, Value value){
+        int count = 0;
+        Cell potentialCell = null;
+        for (Cell cell : cells){
+            if (cell.getValue().equals(value)){
+                count++;
+            } else if (cell.getValue().equals(Value.EMPTY)) {
+                potentialCell = cell;
+            }
+        }
+        
+        if (count == 2 && potentialCell != null){
+            return potentialCell;
+        }
+        return null;
+    }
+    
+    public List<Cell> reactiveMoveComputer(List<Cell> cells){
+        List<Cell> cellsToReturn = new ArrayList<>();
+        int count = 0;
+        for (Cell cell : cells){
+            if (cell.getValue() == Value.O){
+                count ++;
+            } else if (cell.getValue() == Value.EMPTY) {
+                cellsToReturn.add(cell);
+            }
+        }
+        if (count == 1 && cellsToReturn.size() == 2){
+            return cellsToReturn;
+        }
+        return null;
+    }
+
+    public void makeComputerMoveHard(List<Cell> cells) {
+
+        List<List<Cell>> cellCombinations = getCellCombinations(cells);
+
+        List<Cell> cells1 = new ArrayList<>();
+        List<Cell> cells2 = new ArrayList<>();
+
+        List<Cell> cells3 = new ArrayList<>();
+
+        boolean isSaved = false;
+
+        // Check for User, computer 2 in a row and set up conditions
+        for (List<Cell> cellList : cellCombinations) {
+            cells1.add(checkTwoRow(cellList, Value.X));
+            cells2.add(checkTwoRow(cellList, Value.O));
+        }
+
+        // Changes different cells depending on conditions
+
+        if (isListWithCell(cells2)) {
+            List<Cell> validCells = getValidCells(cells2);
+            makeComputerMove(validCells);
+            isSaved = true;
+        }
+
+        if (!isSaved && isListWithCell(cells1)) {
+            List<Cell> validCells = getValidCells(cells1);
+            makeComputerMove(validCells);
+            isSaved = true;
+        }
+
+        if (!isSaved) {
+            for (List<Cell> cellList : cellCombinations) {
+                List<Cell> reactiveMoveResult = reactiveMoveComputer(cellList);
+                if (reactiveMoveResult != null) {
+                    cells3.addAll(reactiveMoveResult);
+                }
+            }
+
+            List<Cell> validCells = getValidCells(cells3);
+            if (!validCells.isEmpty()) {
+                makeComputerMove(validCells);
+                isSaved = true;
+            }
+        }
+
+        // default if for some reason the conditions aren't met
+        if (!isSaved) {
+            makeComputerMove(cells);
+        }
+    }
+
+
+    private boolean isListWithCell(List<Cell> cells){
+        for (Cell cell : cells){
+            if (cell != null){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<Cell> getValidCells(List<Cell> cells){
+        List<Cell> validCells = new ArrayList<>();
+        for (Cell cell : cells){
+            if(cell != null){
+                validCells.add(cell);
+            }
+        }
+        return validCells;
+    }
+
+    private static List<List<Cell>> getCellCombinations(List<Cell> cells) {
+        List<Cell> cellsRow1 = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(1), cells.get(2)));
+        List<Cell> cellsRow2 = new ArrayList<>(Arrays.asList(cells.get(3), cells.get(4), cells.get(5)));
+        List<Cell> cellsRow3 = new ArrayList<>(Arrays.asList(cells.get(6), cells.get(7), cells.get(8)));
+
+        List<Cell> cellsDiagonal1  = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(4), cells.get(8)));
+        List<Cell> cellsDiagonal2 = new ArrayList<>(Arrays.asList(cells.get(2), cells.get(4), cells.get(6)));
+
+        List<Cell> cellsColumn1 = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(3), cells.get(6)));
+        List<Cell> cellsColumn2 = new ArrayList<>(Arrays.asList(cells.get(1), cells.get(4), cells.get(7)));
+        List<Cell> cellsColumn3 = new ArrayList<>(Arrays.asList(cells.get(2), cells.get(5), cells.get(8)));
+
+        List<List<Cell>> cellCombinations = new ArrayList<>(Arrays.asList(cellsRow1, cellsRow2, cellsRow3, cellsDiagonal1, cellsDiagonal2, cellsColumn1, cellsColumn2, cellsColumn3));
+        return cellCombinations;
+    }
+
     public boolean checkLine(List<Cell> cells) {
 
         Value cellValue = cells.get(0).getValue();
@@ -116,18 +237,7 @@ public class GameService {
     public boolean checkWinner(List<Cell> cells){
         // Create a var that stores the first cell's value
 
-        List<Cell> cellsRow1 = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(1), cells.get(2)));
-        List<Cell> cellsRow2 = new ArrayList<>(Arrays.asList(cells.get(3), cells.get(4), cells.get(5)));
-        List<Cell> cellsRow3 = new ArrayList<>(Arrays.asList(cells.get(6), cells.get(7), cells.get(8)));
-
-        List<Cell> cellsDiagonal1  = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(4), cells.get(8)));
-        List<Cell> cellsDiagonal2 = new ArrayList<>(Arrays.asList(cells.get(2), cells.get(4), cells.get(6)));
-
-        List<Cell> cellsColumn1 = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(3), cells.get(6)));
-        List<Cell> cellsColumn2 = new ArrayList<>(Arrays.asList(cells.get(1), cells.get(4), cells.get(7)));
-        List<Cell> cellsColumn3 = new ArrayList<>(Arrays.asList(cells.get(2), cells.get(5), cells.get(8)));
-
-        List<List<Cell>> cellCombinations = new ArrayList<>(Arrays.asList(cellsRow1, cellsRow2, cellsRow3, cellsDiagonal1, cellsDiagonal2, cellsColumn1, cellsColumn2, cellsColumn3));
+        List<List<Cell>> cellCombinations = getCellCombinations(cells);
 
         for (List<Cell> cellList : cellCombinations){
             if(checkLine(cellList)){
@@ -177,7 +287,7 @@ public class GameService {
         }
         else {
 //            cells passed in may need updating with cell players put 'x' in
-            makeComputerMove(cells);
+            makeComputerMoveHard(cells);
         }
         if(checkWinner(cells)){
             ReplyDTO replyDTO = new ReplyDTO("You lost", getGameState(cells), true);

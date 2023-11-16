@@ -10,6 +10,7 @@ import java.util.List;
 public class BoardStateGameDTO {
 
     private Long id;
+    @JsonIgnoreProperties({"games"})
     private Player player;
     private boolean isComplete;
     private Result result;
