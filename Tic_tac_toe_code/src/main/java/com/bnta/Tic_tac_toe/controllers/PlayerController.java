@@ -1,7 +1,7 @@
 package com.bnta.Tic_tac_toe.controllers;
 
+import com.bnta.Tic_tac_toe.models.LeaderBoardDTO;
 import com.bnta.Tic_tac_toe.models.Player;
-import com.bnta.Tic_tac_toe.models.PlayerDTO;
 import com.bnta.Tic_tac_toe.services.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +33,11 @@ public class PlayerController {
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
+    }
+
+    @GetMapping(value = "/leaderboard")
+    public ResponseEntity<LeaderBoardDTO> getLeaderBoard(){
+        return new ResponseEntity<>(playerService.getLeaderBoard(), HttpStatus.OK);
     }
 
     @PostMapping

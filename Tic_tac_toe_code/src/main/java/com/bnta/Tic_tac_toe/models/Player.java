@@ -17,6 +17,10 @@ public class Player {
 
     @Column
     private String playerName;
+
+    @Column
+    private long points;
+
     @OneToMany(mappedBy = "player")
     @JsonIgnoreProperties({"player"})
     private List<Game> games;
@@ -25,6 +29,7 @@ public class Player {
     public Player(String playerName) {
         this.playerName = playerName;
         this.games = new ArrayList<>();
+        this.points = 0;
     }
 
     public Player() {
@@ -54,5 +59,15 @@ public class Player {
         this.games = games;
     }
 
+    public long getPoints() {
+        return points;
+    }
 
+    public void setPoints(long points) {
+        this.points = points;
+    }
+
+    public void addPoints(long points){
+        this.points+=points;
+    }
 }

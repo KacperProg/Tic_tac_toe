@@ -1,8 +1,8 @@
 package com.bnta.Tic_tac_toe.services;
 
 import com.bnta.Tic_tac_toe.models.Game;
+import com.bnta.Tic_tac_toe.models.LeaderBoardDTO;
 import com.bnta.Tic_tac_toe.models.Player;
-import com.bnta.Tic_tac_toe.models.PlayerDTO;
 import com.bnta.Tic_tac_toe.repositories.GameRepository;
 import com.bnta.Tic_tac_toe.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +46,12 @@ public class PlayerService {
         player.setPlayerName(updatedPlayer.getPlayerName());
         playerRepository.save(updatedPlayer);
         return updatedPlayer;
+    }
+
+    public LeaderBoardDTO getLeaderBoard(){
+        LeaderBoardDTO leaderBoardDTO = new LeaderBoardDTO();
+        leaderBoardDTO.setPlayers(playerRepository.findAllByOrderByPointsDesc());
+        return leaderBoardDTO;
     }
 
 }
