@@ -32,27 +32,36 @@ GameController - (all object returned are response entities containing relevent 
 PlayerController
 - **@GetMapping** - getAllPlayers - show all Players
 - **@GetMapping** - getPlayerById - show Specific Player by ID
+- **@GetMapping** - getLeaderboard - shows list of players ordered by points descending
 - **@PostMapping** - addPlayer - create a new Player
 - **@DeleteMapping** - deletePlayerById - delete a player
 - **@PatchMapping** - updatePlayerName - Update player's name but keeps player id
 
-## models - (BoardStateGameDTO, Cell, Game, GameDTO, Player, PlayerDTO, ReplyDTO, Result, Value) ## 
+## models - (BoardStateGameDTO, Cell, Game, GameDTO, Player, NewGameDTO, LeaderBoardDTO, ReplyDTO, Result, Value, Difficulty, Rank) ## 
 
 BoardStateDTO (long id, Player player, boolean isComplete, Result result, List<List<Value<ignore>>> board)
 
 Cell (long id, Game game, Value value, int cellNumber)
 
-Game (long id, Player player, boolean isComplete, Result result)
+Game (long id, Player player, boolean isComplete, Result result, Difficulty difficulty, List<Cell<ignore>>)
 
 GameDTO (int position)
 
-Player (long id, String playerName, List<Game<ignore>> games)
+LeaderBoardDTO (List<Player<ignore>>)
+
+NewGameDTO (Difficulty difficulty, long playerId)
+
+Player (long id, String playerName, List<Game<ignore>> games, Rank rank, long points)
 
 ReplyDTO (String message, List<List<Value<ignore>>> board, boolean isValidMove, Result result)
+
+enum Rank (NOVICE_NOUGHT_NINJA, CROSSWORD_CRUSADER, TIC_TAC_TITAN, ZSOLT, ROCKSTAR)
 
 enum Result (WIN, DRAW, LOSS)
 
 enum Value (EMPTY, X, O)
+
+enum Difficulty (EASY, HARD)
 
 repositories - (CellRepository, GameRepository, PlayerRepository)
 
@@ -71,11 +80,11 @@ Gameservice
 - isBoardFull(returns true if every cell has and 'X' or 'O' in it)
 - makePlayerMove(puts an 'X' in cell chosen by player)
 - makeComputerMove(puts an 'O' in a random unoccupied cell)
-- checkTwo()
-- reactiveMoveComputer()
-- makeComputerMoveHard()
-- isListWithCell()
-- getValidCells()
+- checkTwo(returns the third cell in the row if user or computer has 2 in a row within each potential winning combination)
+- reactiveMoveComputer(returns a list of potential moves for the computer to make to set up a two-in-a-row after taking in a list of cells where the computer has made one move in the row )
+- makeComputerMoveHard(completes computer's move based on which conditions are met)
+- isListWithCell(checks if the list it takes contains at least one cell)
+- getValidCells(returns a list of the valid cells within a list passed in)
 - getCellCombinations(return a List of the lists of all possible cell combinations that would give a 3 in a row)
 - checkLine(return true if there is a line of 'X's or 'O's)
 - checkWinner(return true if any possible checkLine is true)
