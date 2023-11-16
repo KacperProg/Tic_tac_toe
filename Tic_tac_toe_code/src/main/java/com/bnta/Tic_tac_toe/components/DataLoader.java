@@ -31,8 +31,9 @@ public class DataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args){
         Player zsolt = new Player("Zsolt");
         playerRepository.save(zsolt);
-
+        
         Game game1 = gameService.startNewGame(zsolt.getId(), Difficulty.EASY);
+
     }
 
 

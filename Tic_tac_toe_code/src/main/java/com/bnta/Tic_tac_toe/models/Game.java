@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -75,7 +77,16 @@ public class Game {
     }
 
     public List<Cell> getCells() {
-        return cells;
+
+//        Orders cells before they are returned
+        Collections.sort(this.cells, new Comparator<Cell>() {
+            @Override
+            public int compare(Cell cell1, Cell cell2) {
+//              This takes the second cell's cellNumber and subtracts it from the first. If negative, cell 2 is bigger and vice versa. Look into Cocktail Sort for more information
+                return cell1.getCellNumber() - cell2.getCellNumber();
+            }
+        });
+        return this.cells;
     }
 
     public void setCells(List<Cell> cells) {
