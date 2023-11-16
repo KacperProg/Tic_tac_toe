@@ -43,9 +43,10 @@ public class GameService {
     }
 
     @Transactional
-    public Game startNewGame(long playerId) {
+    public Game startNewGame(long playerId, Difficulty difficulty) {
         Player player = playerRepository.findById(playerId).get();
         Game game = new Game(player);
+        game.setDifficulty(difficulty);
         gameRepository.save(game);
 
         makeCells(9, game);

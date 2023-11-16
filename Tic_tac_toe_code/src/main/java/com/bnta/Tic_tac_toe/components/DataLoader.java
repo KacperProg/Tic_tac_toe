@@ -1,5 +1,6 @@
 package com.bnta.Tic_tac_toe.components;
 
+import com.bnta.Tic_tac_toe.models.Difficulty;
 import com.bnta.Tic_tac_toe.models.Game;
 import com.bnta.Tic_tac_toe.models.Player;
 import com.bnta.Tic_tac_toe.repositories.GameRepository;
@@ -31,7 +32,7 @@ public class DataLoader implements ApplicationRunner {
         Player zsolt = new Player("Zsolt");
         playerRepository.save(zsolt);
 
-        Game game1 = gameService.startNewGame(zsolt.getId());
+        Game game1 = gameService.startNewGame(zsolt.getId(), Difficulty.EASY);
     }
 
 
