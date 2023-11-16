@@ -25,7 +25,19 @@ public class GameController {
     }
 
     @GetMapping(value = "/{gameId}")
-    public ResponseEntity<BoardStateGameDTO> getGameById(@PathVariable long gameId){
+    public ResponseEntity<Game> getGameById(@PathVariable long gameId){
+        Optional<Game> optionalGame = gameService.getGameById(gameId);
+
+        if(optionalGame.isPresent()){
+            Game game = optionalGame.get();
+            return new ResponseEntity<>(game, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/game-state/{gameId}")
+    public ResponseEntity<BoardStateGameDTO> getGameState(@PathVariable long gameId){
         Optional<Game> optionalGame = gameService.getGameById(gameId);
 
         if(optionalGame.isPresent()){
@@ -37,7 +49,6 @@ public class GameController {
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
-
 
     @PostMapping
     public ResponseEntity<Game> startNewGame(@RequestParam long playerId){

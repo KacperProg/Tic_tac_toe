@@ -281,7 +281,7 @@ public class GameService {
             return replyDTO;
         }
         if(isBoardFull(cells)){
-            ReplyDTO replyDTO = new ReplyDTO("Invalid move, chosen cell is occupied", getGameState(cells), true);
+            ReplyDTO replyDTO = new ReplyDTO("Game complete, you drew", getGameState(cells), true);
             replyDTO.setResult(Result.DRAW);
             return replyDTO;
         }
