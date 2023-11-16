@@ -263,6 +263,7 @@ public class GameService {
     public ReplyDTO processTurn(GameDTO gameDTO, long gameId){
         Game game = gameRepository.findById(gameId).get();
         Cell chosenCell = cellRepository.findByCellNumberAndGameId(gameDTO.getPosition(), gameId);
+        Player player = game.getPlayer();
 
         List<Cell> cells = game.getCells();
 
@@ -282,6 +283,9 @@ public class GameService {
             game.setResult(Result.WIN);
             game.setComplete(true);
             gameRepository.save(game);
+
+            player.addPoints(500);
+            playerRepository.save(player);
             return replyDTO;
         }
         if(isBoardFull(cells)){
@@ -290,6 +294,9 @@ public class GameService {
             game.setResult(Result.DRAW);
             game.setComplete(true);
             gameRepository.save(game);
+
+            player.addPoints(200);
+            playerRepository.save(player);
             return replyDTO;
         }
         else {
@@ -306,6 +313,9 @@ public class GameService {
             game.setResult(Result.LOSS);
             game.setComplete(true);
             gameRepository.save(game);
+
+            player.addPoints(-200);
+            playerRepository.save(player);
             return replyDTO;
         }
         else {
