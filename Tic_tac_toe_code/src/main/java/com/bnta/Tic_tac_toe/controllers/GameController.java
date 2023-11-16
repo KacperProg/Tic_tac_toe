@@ -51,8 +51,8 @@ public class GameController {
     }
 
     @PostMapping
-    public ResponseEntity<Game> startNewGame(@RequestParam long playerId){
-        Game game = gameService.startNewGame(playerId);
+    public ResponseEntity<Game> startNewGame(@RequestBody NewGameDTO newGameDTO){
+        Game game = gameService.startNewGame(newGameDTO.getPlayerId(), newGameDTO.getDifficulty());
         return new ResponseEntity<>(game, HttpStatus.CREATED);
     }
 
@@ -79,4 +79,5 @@ public class GameController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
     }
+
 }

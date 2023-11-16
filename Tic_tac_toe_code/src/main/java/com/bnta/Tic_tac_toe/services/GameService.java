@@ -44,9 +44,10 @@ public class GameService {
     }
 
     @Transactional
-    public Game startNewGame(long playerId) {
+    public Game startNewGame(long playerId, Difficulty difficulty) {
         Player player = playerRepository.findById(playerId).get();
         Game game = new Game(player);
+        game.setDifficulty(difficulty);
         gameRepository.save(game);
 
         makeCells(9, game);
@@ -293,7 +294,10 @@ public class GameService {
         }
         else {
 //            cells passed in may need updating with cell players put 'x' in
-            makeComputerMoveHard(cells);
+            if (game.getDifficulty() == Difficulty.EASY){
+                
+            }
+            makeComputerMove(cells);
         }
         if(checkWinner(cells)){
             ReplyDTO replyDTO = new ReplyDTO("You lost", getGameState(cells), true);

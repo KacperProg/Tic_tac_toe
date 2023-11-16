@@ -27,6 +27,9 @@ public class Game {
     @Column
     private Result result;
 
+    @Column
+    private Difficulty difficulty;
+
     @OneToMany(mappedBy = "game")
     @JsonIgnoreProperties({"game"})
     private List<Cell> cells;
@@ -35,6 +38,7 @@ public class Game {
         this.player = player;
         this.isComplete = false;
         this.cells = new ArrayList<>();
+        this.difficulty = Difficulty.EASY;
     }
 
     public Game() {
@@ -93,4 +97,11 @@ public class Game {
         this.cells.add(cell);
     }
 
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
 }
