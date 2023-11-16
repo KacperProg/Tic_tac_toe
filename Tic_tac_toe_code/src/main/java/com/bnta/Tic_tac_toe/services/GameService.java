@@ -180,7 +180,11 @@ public class GameService {
         }
         else {
 //            cells passed in may need updating with cell players put 'x' in
+            if (game.getDifficulty() == Difficulty.EASY){
+                
+            }
             makeComputerMove(cells);
+
         }
         if(checkWinner(cells)){
             replyDTO.setMessage("You lost");
