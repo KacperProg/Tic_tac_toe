@@ -295,9 +295,10 @@ public class GameService {
         else {
 //            cells passed in may need updating with cell players put 'x' in
             if (game.getDifficulty() == Difficulty.EASY){
-                
+                makeComputerMove(cells);
+            } else if (game.getDifficulty() == Difficulty.HARD) {
+                makeComputerMoveHard(cells);
             }
-            makeComputerMove(cells);
         }
         if(checkWinner(cells)){
             ReplyDTO replyDTO = new ReplyDTO("You lost", getGameState(cells), true);
