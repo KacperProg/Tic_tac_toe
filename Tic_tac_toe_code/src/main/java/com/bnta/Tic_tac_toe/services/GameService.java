@@ -267,6 +267,10 @@ public class GameService {
 
         List<Cell> cells = game.getCells();
 
+        if (game.isComplete()){
+            return new ReplyDTO("Invalid move, Game is already complete", getGameState(cells), false);
+        }
+
         if (isBoardFull(cells)){
             return new ReplyDTO("Invalid move, board is full",getGameState(cells), false);
         }
