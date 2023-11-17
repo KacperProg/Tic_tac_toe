@@ -3,9 +3,18 @@
 
 ## Aim ##
 
+MVP
+
 Create an interactive game of tic-tac-toe which can be played through postman. A player can be created with a name, and id. A game is made with a set of 9 blank cells, which can be filled through patch requests to the game. After a move is made, there is a computer response where a the computer takes a turn based on the player's move.
 
 Game logic is implemented to process every possible outcome of the game and return the state of the game after each guess or after the game is complete.
+
+Extension
+
+- Create a leaderboard system where players gain and lose points for winning / losing games
+- Create a ranking system where there are different ranks based on how many points a player has
+- Add in a hard mode where the computer returns a move based on the current boardstate instead of being completely random
+- Create a 2-player mode where two players can play against each other instead of against a computer
 
 ## Database structure ##
 

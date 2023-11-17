@@ -42,7 +42,7 @@ public class DataLoader implements ApplicationRunner {
         playerRepository.save(emmanuel);
 
         Player gisele = new Player("Gisele");
-        gisele.setPoints(1500);
+        gisele.setPoints(2500);
         playerRepository.save(gisele);
 
         Player kacper = new Player("Kacper");
