@@ -37,9 +37,17 @@ public class DataLoader implements ApplicationRunner {
         saima.setPoints(1000);
         playerRepository.save(saima);
 
-        Player tom = new Player("Tom");
-        tom.setPoints(-400);
-        playerRepository.save(tom);
+        Player emmanuel = new Player("Emmanuel");
+        emmanuel.setPoints(-400);
+        playerRepository.save(emmanuel);
+
+        Player gisele = new Player("Gisele");
+        gisele.setPoints(1500);
+        playerRepository.save(gisele);
+
+        Player kacper = new Player("Kacper");
+        kacper.setPoints(1200);
+        playerRepository.save(kacper);
         
         Game game1 = gameService.startNewGame(zsolt.getId(), Difficulty.EASY);
 
