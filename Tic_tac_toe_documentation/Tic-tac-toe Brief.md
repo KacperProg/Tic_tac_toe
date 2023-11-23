@@ -23,7 +23,7 @@ Build Spring Boot API with **Web**, **DevTools**, **PostgreSQL** and **JPA** dep
 
 	
 ## 	Extension
-1. Create a 2-player game - Change DB relationships
-2. Create a Leaderboard
-3. Achievements - Messages to say you've won this many games etc.
-4.  
+1. Create a Leaderboard
+2. Achievements - Ranks reflecting how many games you've won.
+3. Change Computer difficulty
+4. Create a 2-player game - Change DB relationships

@@ -21,6 +21,9 @@ public class Player {
     @Column
     private long points;
 
+    @Column
+    private Rank rank;
+
     @OneToMany(mappedBy = "player")
     @JsonIgnoreProperties({"player"})
     private List<Game> games;
@@ -69,5 +72,27 @@ public class Player {
 
     public void addPoints(long points){
         this.points+=points;
+    }
+
+    public Rank getRank() {
+        if (this.points >= 2000){
+            return Rank.ROCKSTAR;
+        }
+
+        if (this.points >= 1500){
+            return Rank.ZSOLT;
+        }
+
+        if (this.points >= 1000){
+            return Rank.TIC_TAC_TITAN;
+        }
+        if(this.points >= 500){
+            return Rank.CROSSWORD_CRUSADER;
+        }
+        return Rank.NOVICE_NOUGHT_NINJA;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
     }
 }
