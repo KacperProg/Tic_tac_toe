@@ -43,8 +43,8 @@ public class PlayerService {
     public Player updatePlayerName(Player updatedPlayer){
         Player player = playerRepository.findById(updatedPlayer.getId()).get();
         player.setPlayerName(updatedPlayer.getPlayerName());
-        playerRepository.save(updatedPlayer);
-        return updatedPlayer;
+        playerRepository.save(player);
+        return player;
     }
 
     public LeaderBoardDTO getLeaderBoard(){
