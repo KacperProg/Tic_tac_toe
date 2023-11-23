@@ -1,5 +1,6 @@
 package com.bnta.Tic_tac_toe.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -32,6 +33,7 @@ public class Game {
 
     @OneToMany(mappedBy = "game")
     @JsonIgnoreProperties({"game"})
+    @JsonIgnore
     private List<Cell> cells;
 
     public Game(Player player) {
