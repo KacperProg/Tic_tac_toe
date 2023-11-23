@@ -1,13 +1,10 @@
 package com.bnta.Tic_tac_toe.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 import java.util.List;
 
-public class BoardStateGameDTO {
+public class GameStateDTO {
 
     private Long id;
     @JsonIgnoreProperties({"games"})
@@ -17,14 +14,14 @@ public class BoardStateGameDTO {
 
     private List<List<Value>> board;
 
-    public BoardStateGameDTO(Long id, Player player, boolean isComplete, Result result) {
+    public GameStateDTO(Long id, Player player, boolean isComplete, Result result) {
         this.id = id;
         this.player = player;
         this.isComplete = isComplete;
         this.result = result;
     }
 
-    public BoardStateGameDTO() {
+    public GameStateDTO() {
     }
 
 
