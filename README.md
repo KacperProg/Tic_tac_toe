@@ -64,6 +64,8 @@ Player (long id, String playerName, List<Game<ignore>> games, Rank rank, long po
 
 ReplyDTO (String message, List<List<Value<ignore>>> board, boolean isValidMove, Result result)
 
+(When enums are given in JSON, they must be provided in caps)
+
 enum Rank (NOVICE_NOUGHT_NINJA, CROSSWORD_CRUSADER, TIC_TAC_TITAN, ZSOLT, ROCKSTAR)
 
 enum Result (WIN, DRAW, LOSS)

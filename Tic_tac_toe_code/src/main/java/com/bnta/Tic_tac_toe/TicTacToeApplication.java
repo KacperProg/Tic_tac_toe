@@ -27,5 +27,3 @@ public class TicTacToeApplication {
 //		-Unsure about why it’s necessary for each row to be stored as a list - I feel like this was more aesthetic because from a frontend perspective you only need to know what the cellId is
 //	ERROR HANDLING
 //		-Error code 200 (OK) when you submit the same position twice - incorrect error code, should probably be a 400/405.
-//		-Enums must be written the way they are coded ie all in capitals otherwise you cannot start a game - this should be documented
-
