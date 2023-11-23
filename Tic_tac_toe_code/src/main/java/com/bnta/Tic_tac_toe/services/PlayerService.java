@@ -8,6 +8,7 @@ import com.bnta.Tic_tac_toe.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +17,6 @@ public class PlayerService {
 
     @Autowired
     PlayerRepository playerRepository;
-
-    @Autowired
-    GameRepository gameRepository;
 
     public List<Player> getAllPlayers(){
         return playerRepository.findAll();
@@ -29,6 +27,7 @@ public class PlayerService {
     }
 
     public Player addPlayer(Player player){
+        player.setGames(new ArrayList<>());
         playerRepository.save(player);
         return player;
     }
@@ -44,8 +43,8 @@ public class PlayerService {
     public Player updatePlayerName(Player updatedPlayer){
         Player player = playerRepository.findById(updatedPlayer.getId()).get();
         player.setPlayerName(updatedPlayer.getPlayerName());
-        playerRepository.save(updatedPlayer);
-        return updatedPlayer;
+        playerRepository.save(player);
+        return player;
     }
 
     public LeaderBoardDTO getLeaderBoard(){
