@@ -19,7 +19,6 @@ public class TicTacToeApplication {
 //		-UML diagram missing - please add this in
 //		-You only need to write the available routes, you can take out the parts which tell you what each method does because you naming of methods should be a dead giveaway to what the method does and similarly you don’t need to write what models or components are available.
 //	RESTFUL ROUTES
-//		-GetMapping returns all the cells, if you have 5 games you will have a LOT of cells so maybe JSON ignore property - is it necessary to see all the cells when accessing the game? This will probably also declutter everything that appears when you do a get request to players.
 //		-Why do you need a NewGameDTO when you could POST a game using the Game Model and adding in the Difficulty in the constructor?
 //	GENERAL CODE
 //		-Naming convention could be better eg checkTwoRow, isListWithCell, checkLine
