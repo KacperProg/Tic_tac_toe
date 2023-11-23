@@ -60,11 +60,11 @@ public class GameController {
     public ResponseEntity<ReplyDTO> updateGame(@PathVariable long gameId, @RequestBody GameDTO gameDTO){
         Optional<Game> optionalGame = gameService.getGameById(gameId);
 
-        if (optionalGame.isPresent() && gameDTO.getPosition() > 0 && gameDTO.getPosition() <10) {
+        if (optionalGame.isPresent()){
             ReplyDTO replyDTO = gameService.processTurn(gameDTO, gameId);
             return new ResponseEntity<>(replyDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping(value = "/{id}")
