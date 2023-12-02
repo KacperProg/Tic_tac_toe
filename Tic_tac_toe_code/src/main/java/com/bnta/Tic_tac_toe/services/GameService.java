@@ -4,6 +4,7 @@ import com.bnta.Tic_tac_toe.models.*;
 import com.bnta.Tic_tac_toe.repositories.CellRepository;
 import com.bnta.Tic_tac_toe.repositories.GameRepository;
 import com.bnta.Tic_tac_toe.repositories.PlayerRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
 package com.bnta.Tic_tac_toe.controllers;
 
 import com.bnta.Tic_tac_toe.models.*;
-import com.bnta.Tic_tac_toe.repositories.GameRepository;
 import com.bnta.Tic_tac_toe.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,14 +36,14 @@ public class GameController {
     }
 
     @GetMapping(value = "/game-state/{gameId}")
-    public ResponseEntity<BoardStateGameDTO> getGameState(@PathVariable long gameId){
+    public ResponseEntity<GameStateDTO> getGameState(@PathVariable long gameId){
         Optional<Game> optionalGame = gameService.getGameById(gameId);
 
         if(optionalGame.isPresent()){
             Game game = optionalGame.get();
-            BoardStateGameDTO boardStateGameDTO = new BoardStateGameDTO(game.getId(), game.getPlayer(), game.isComplete(), game.getResult());
-            boardStateGameDTO.setBoard(gameService.getGameState(game.getCells()));
-            return new ResponseEntity<>(boardStateGameDTO, HttpStatus.OK);
+            GameStateDTO gameStateDTO = new GameStateDTO(game.getId(), game.getPlayer(), game.isComplete(), game.getResult());
+            gameStateDTO.setBoard(gameService.getGameState(game.getCells()));
+            return new ResponseEntity<>(gameStateDTO, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -60,11 +59,11 @@ public class GameController {
     public ResponseEntity<ReplyDTO> updateGame(@PathVariable long gameId, @RequestBody GameDTO gameDTO){
         Optional<Game> optionalGame = gameService.getGameById(gameId);
 
-        if (optionalGame.isPresent()){
+        if (optionalGame.isPresent() && gameDTO.getPosition() > 0 && gameDTO.getPosition() <10) {
             ReplyDTO replyDTO = gameService.processTurn(gameDTO, gameId);
             return new ResponseEntity<>(replyDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping(value = "/{id}")
