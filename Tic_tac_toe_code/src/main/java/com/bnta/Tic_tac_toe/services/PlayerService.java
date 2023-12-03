@@ -40,9 +40,9 @@ public class PlayerService {
         playerRepository.deleteById(id);
     }
 
-    public Player updatePlayerName(Player updatedPlayer){
-        Player player = playerRepository.findById(updatedPlayer.getId()).get();
-        player.setPlayerName(updatedPlayer.getPlayerName());
+    public Player updatePlayerName(long id, String newPlayerName){
+        Player player = playerRepository.findById(id).get();
+        player.setPlayerName(newPlayerName);
         playerRepository.save(player);
         return player;
     }

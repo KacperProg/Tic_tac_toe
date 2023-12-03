@@ -59,12 +59,12 @@ public class PlayerController {
 
     }
 
-    @PatchMapping
-    public ResponseEntity<Player> updatePlayerName(@RequestBody Player player){
-        Optional<Player> checkPlayer = playerService.getPlayerById(player.getId());
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Player> updatePlayerName(@PathVariable long id, @RequestBody String newPlayerName){
+        Optional<Player> checkPlayer = playerService.getPlayerById(id);
 
         if (checkPlayer.isPresent()){
-            return new ResponseEntity<>(playerService.updatePlayerName(player), HttpStatus.OK);
+            return new ResponseEntity<>(playerService.updatePlayerName(id, newPlayerName), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
