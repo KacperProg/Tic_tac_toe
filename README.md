@@ -71,6 +71,10 @@ PlayerController
   - JSON = newPlayerName
   - This route takes in a string with the new player name
 
+## UML Diagrams ##
+
+![Alt text](<Screenshot 2023-12-03 at 16.22.31 copy.png>)
+
 ## models - (BoardStateGameDTO, Cell, Game, GameDTO, Player, NewGameDTO, LeaderBoardDTO, ReplyDTO, Result, Value, Difficulty, Rank) ## 
 
 BoardStateDTO (long id, Player player, boolean isComplete, Result result, List<List<Value<ignore>>> board)
