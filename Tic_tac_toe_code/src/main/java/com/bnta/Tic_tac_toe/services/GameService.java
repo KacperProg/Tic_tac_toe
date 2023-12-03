@@ -4,14 +4,10 @@ import com.bnta.Tic_tac_toe.models.*;
 import com.bnta.Tic_tac_toe.repositories.CellRepository;
 import com.bnta.Tic_tac_toe.repositories.GameRepository;
 import com.bnta.Tic_tac_toe.repositories.PlayerRepository;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.event.CellEditorListener;
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Service
@@ -85,22 +81,23 @@ public class GameService {
     }
 
     public void makeComputerMove(List<Cell> cells){
+//        Create a list of all empty cells
         List<Integer> emptyCells = new ArrayList<>();
         for (int i = 0; i < cells.size(); i++){
             if (!isCellFull(cells.get(i))){
                 emptyCells.add(i);
             }
         }
+//        Make a computer guess in a random unoccupied cell
         Random random = new Random();
         int randomNumber = random.nextInt(emptyCells.size());
         int computerGuess = emptyCells.get(randomNumber);
-
         cells.get(computerGuess).setValue(Value.O);
         cellRepository.save(cells.get(computerGuess));
-
     }
 
-    public Cell checkTwoRow(List<Cell> cells, Value value){
+    public Cell checkTwoInARow(List<Cell> cells, Value value){
+//        check if computer/player has two in a row. If so, return the third cell to complete/block 3 in a row
         int count = 0;
         Cell potentialCell = null;
         for (Cell cell : cells){
@@ -134,32 +131,30 @@ public class GameService {
     }
 
     public void makeComputerMoveHard(List<Cell> cells) {
-
+//        Computer makes an intelligent move based on gameState
         List<List<Cell>> cellCombinations = getCellCombinations(cells);
-
-        List<Cell> cells1 = new ArrayList<>();
-        List<Cell> cells2 = new ArrayList<>();
-
+        List<Cell> playerWinningPossibilities = new ArrayList<>();
+        List<Cell> computerWinningPossibilites = new ArrayList<>();
         List<Cell> cells3 = new ArrayList<>();
 
         boolean isSaved = false;
 
         // Check for User, computer 2 in a row and set up conditions
+//        Create a list of moves that would complete a three in a row for player and computer
         for (List<Cell> cellList : cellCombinations) {
-            cells1.add(checkTwoRow(cellList, Value.X));
-            cells2.add(checkTwoRow(cellList, Value.O));
+            playerWinningPossibilities.add(checkTwoInARow(cellList, Value.X));
+            computerWinningPossibilites.add(checkTwoInARow(cellList, Value.O));
         }
 
         // Changes different cells depending on conditions
-
-        if (isListWithCell(cells2)) {
-            List<Cell> validCells = getValidCells(cells2);
+        if (isListContainingACell(computerWinningPossibilites)) {
+            List<Cell> validCells = getValidCells(computerWinningPossibilites);
             makeComputerMove(validCells);
             isSaved = true;
         }
 
-        if (!isSaved && isListWithCell(cells1)) {
-            List<Cell> validCells = getValidCells(cells1);
+        if (!isSaved && isListContainingACell(playerWinningPossibilities)) {
+            List<Cell> validCells = getValidCells(playerWinningPossibilities);
             makeComputerMove(validCells);
             isSaved = true;
         }
@@ -186,7 +181,7 @@ public class GameService {
     }
 
 
-    private boolean isListWithCell(List<Cell> cells){
+    private boolean isListContainingACell(List<Cell> cells){
         for (Cell cell : cells){
             if (cell != null){
                 return true;
@@ -205,6 +200,7 @@ public class GameService {
         return validCells;
     }
 
+//    Returns a (2D array) of all possible rows/columns/diagonals
     private static List<List<Cell>> getCellCombinations(List<Cell> cells) {
         List<Cell> cellsRow1 = new ArrayList<>(Arrays.asList(cells.get(0), cells.get(1), cells.get(2)));
         List<Cell> cellsRow2 = new ArrayList<>(Arrays.asList(cells.get(3), cells.get(4), cells.get(5)));
@@ -237,10 +233,10 @@ public class GameService {
     }
 
     public boolean checkWinner(List<Cell> cells){
-        // Create a var that stores the first cell's value
-
+//        Find all possible ways of winning
         List<List<Cell>> cellCombinations = getCellCombinations(cells);
 
+//        Check each combination to check for a winner
         for (List<Cell> cellList : cellCombinations){
             if(checkLine(cellList)){
                 return true;
@@ -255,7 +251,6 @@ public class GameService {
         List<Value> cellsRow2Values = new ArrayList<>(Arrays.asList(cells.get(3).getValue(), cells.get(4).getValue(), cells.get(5).getValue()));
         List<Value> cellsRow3Values = new ArrayList<>(Arrays.asList(cells.get(6).getValue(), cells.get(7).getValue(), cells.get(8).getValue()));
 
-
         List<List<Value>> board = new ArrayList<>(Arrays.asList(cellsRow1Values, cellsRow2Values, cellsRow3Values));
 
         return board;
@@ -268,10 +263,10 @@ public class GameService {
 
         List<Cell> cells = game.getCells();
 
+//        Check the player move is valid
         if (game.isComplete()){
             return new ReplyDTO("Invalid move, Game is already complete", getGameState(cells), false);
         }
-
         if (isBoardFull(cells)){
             return new ReplyDTO("Invalid move, board is full",getGameState(cells), false);
         }
@@ -282,17 +277,18 @@ public class GameService {
             makePlayerMove(chosenCell);
         }
 
+//        Check if player won the game with this move
         if(checkWinner(cells)){
             ReplyDTO replyDTO = new ReplyDTO("You won", getGameState(cells), true);
             replyDTO.setResult(Result.WIN);
             game.setResult(Result.WIN);
             game.setComplete(true);
             gameRepository.save(game);
-
             player.addPoints(500);
             playerRepository.save(player);
             return replyDTO;
         }
+//        Check if the board is now full but there was no winner, the game is a draw
         if(isBoardFull(cells)){
             ReplyDTO replyDTO = new ReplyDTO("Game complete, game ended in a draw", getGameState(cells), true);
             replyDTO.setResult(Result.DRAW);
@@ -304,14 +300,16 @@ public class GameService {
             playerRepository.save(player);
             return replyDTO;
         }
+//        Computer makes move based on game difficulty
         else {
-//            cells passed in may need updating with cell players put 'x' in
             if (game.getDifficulty() == Difficulty.EASY){
                 makeComputerMove(cells);
             } else if (game.getDifficulty() == Difficulty.HARD) {
                 makeComputerMoveHard(cells);
             }
         }
+
+//        If there is now a winner, it must be the computer, so player loses
         if(checkWinner(cells)){
             ReplyDTO replyDTO = new ReplyDTO("You lost", getGameState(cells), true);
             replyDTO.setResult(Result.LOSS);
@@ -323,14 +321,9 @@ public class GameService {
             playerRepository.save(player);
             return replyDTO;
         }
+
         else {
             return new ReplyDTO("turn processed", getGameState(cells), true);
         }
-
-
-
-
-
     }
-
 }
