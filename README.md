@@ -46,6 +46,31 @@ PlayerController
 - **@DeleteMapping** - deletePlayerById - delete a player
 - **@PatchMapping** - updatePlayerName - Update player's name but keeps player id
 
+## Example payloads - (GameController, PlayerController) ##
+
+GameController - (all object returned are response entities containing relevent information)
+- **@GetMapping** - /games
+- **@GetMapping** - /games/{id}
+- **@GetMapping** - /games/game-state/{id}
+- **@PostMapping** - /games 
+	- JSON = {"difficulty": "{EASY or HARD}", "playerId": "{id}"}
+	- difficulty can be EASY or HARD
+- **@DeleteMapping** - /games/{id}
+- **@PatchMapping** - /games/{id}
+  - JSON = {"position": "{int 1-9}"}
+  - position is a cellNumber in a game (1-9)
+
+PlayerController
+- **@GetMapping** - /players
+- **@GetMapping** - /players/{id}
+- **@GetMapping** - /players/leaderboard
+- **@PostMapping** - /players
+  - JSON = {"playerName":"Tom"}
+- **@DeleteMapping** - /players/{id}
+- **@PatchMapping** - /players/{id}
+  - JSON = newPlayerName
+  - This route takes in a string with the new player name
+
 ## models - (BoardStateGameDTO, Cell, Game, GameDTO, Player, NewGameDTO, LeaderBoardDTO, ReplyDTO, Result, Value, Difficulty, Rank) ## 
 
 BoardStateDTO (long id, Player player, boolean isComplete, Result result, List<List<Value<ignore>>> board)

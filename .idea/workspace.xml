@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d3cb24b-a30b-4053-b113-a2109650689b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/TicTacToeApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/controllers/PlayerController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/models/Cell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/models/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/models/GameDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/models/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/models/PlayerDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/models/Result.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/models/Value.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/repositories/GameRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/repositories/PlayerRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic_tac_toe_code/target/classes/com/bnta/Tic_tac_toe/services/PlayerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

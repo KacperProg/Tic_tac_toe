@@ -61,7 +61,10 @@ public class GameController {
 
         if (optionalGame.isPresent() && gameDTO.getPosition() > 0 && gameDTO.getPosition() <10) {
             ReplyDTO replyDTO = gameService.processTurn(gameDTO, gameId);
-            return new ResponseEntity<>(replyDTO, HttpStatus.OK);
+            if(replyDTO.isValidMove()){
+                return new ResponseEntity<>(replyDTO, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(replyDTO, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
