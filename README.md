@@ -91,7 +91,7 @@ Gameservice
 - isBoardFull(returns true if every cell has and 'X' or 'O' in it)
 - makePlayerMove(puts an 'X' in cell chosen by player)
 - makeComputerMove(puts an 'O' in a random unoccupied cell)
-- checkTwo(returns the third cell in the row if user or computer has 2 in a row within each potential winning combination)
+- checkTwoinARow(returns the third cell in the row if user or computer has 2 in a row within each potential winning combination)
 - reactiveMoveComputer(returns a list of potential moves for the computer to make to set up a two-in-a-row after taking in a list of cells where the computer has made one move in the row )
 - makeComputerMoveHard(completes computer's move based on which conditions are met)
 - isListWithCell(checks if the list it takes contains at least one cell)
