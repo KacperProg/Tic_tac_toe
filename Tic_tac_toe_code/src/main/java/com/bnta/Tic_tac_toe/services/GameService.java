@@ -135,7 +135,8 @@ public class GameService {
         List<List<Cell>> cellCombinations = getCellCombinations(cells);
         List<Cell> playerWinningPossibilities = new ArrayList<>();
         List<Cell> computerWinningPossibilites = new ArrayList<>();
-        List<Cell> cells3 = new ArrayList<>();
+//        list of intelligent computer moves if there is no possible 3 in a row to make/block
+        List<Cell> computerPossibleMoves = new ArrayList<>();
 
         boolean isSaved = false;
 
@@ -163,11 +164,11 @@ public class GameService {
             for (List<Cell> cellList : cellCombinations) {
                 List<Cell> reactiveMoveResult = reactiveMoveComputer(cellList);
                 if (reactiveMoveResult != null) {
-                    cells3.addAll(reactiveMoveResult);
+                    computerPossibleMoves.addAll(reactiveMoveResult);
                 }
             }
 
-            List<Cell> validCells = getValidCells(cells3);
+            List<Cell> validCells = getValidCells(computerPossibleMoves);
             if (!validCells.isEmpty()) {
                 makeComputerMove(validCells);
                 isSaved = true;
